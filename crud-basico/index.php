@@ -3,59 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD de Videojuegos</title>
+    <title>CRUD de Videojuegos - Oscuro</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        input[type='number']::-webkit-inner-spin-button,
+        input[type='number']::-webkit-outer-spin-button {
+            opacity: 1;
+            height: auto;
+        }
+        
+        .table-description {
+            white-space: normal;
+            word-break: break-word;
+            max-width: 150px;
+        }
+
+        .table-fixed-layout {
+            table-layout: fixed;
+            width: 100%;
+        }
+        .table-fixed-layout th, .table-fixed-layout td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-900 text-gray-200">
 
-    <div class="container mx-auto p-4 md:p-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-900">🎮 Gestión de Videojuegos</h1>
+    <div class="min-h-screen flex flex-col">
+        <h1 class="text-3xl md:text-4xl font-bold text-center py-6 md:py-8 text-indigo-400">Gestión de Videojuegos</h1>
 
-        <div class="flex flex-col md:flex-row gap-8">
+        <div class="flex flex-col md:flex-row flex-grow p-4 gap-6">
 
             <div class="md:w-1/3">
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h2 class="text-2xl font-semibold mb-5">Agregar Nuevo Videojuego</h2>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg h-full"> <h2 class="text-2xl font-semibold mb-5 text-indigo-300">Agregar Nuevo Videojuego</h2>
                     
                     <form action="#" method="POST" class="space-y-4">
                         
                         <div>
-                            <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                            <label for="nombre" class="block text-sm font-medium text-gray-300">Nombre</label>
                             <input type="text" id="nombre" name="nombre" 
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
-                                   placeholder="Ej: Elden Ring" required>
+                                   class="p-2 mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
+                                   placeholder="Ej: Cyberpunk 2077" required>
                         </div>
 
                         <div>
-                            <label for="genero" class="block text-sm font-medium text-gray-700">Género</label>
+                            <label for="genero" class="block text-sm font-medium text-gray-300">Género</label>
                             <input type="text" id="genero" name="genero" 
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
+                                   class="p-2 mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
                                    placeholder="Ej: RPG de Acción" required>
                         </div>
 
                         <div>
-                            <label for="calificacion" class="block text-sm font-medium text-gray-700">Calificación Personal (1-10)</label>
-                            <select id="calificacion" name="calificacion" 
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
-                                    required>
-                                <option value="" disabled selected>Selecciona una calificación</option>
-                                <option value="1">1 </option>
-                                <option value="2">2 </option>
-                                <option value="3">3 </option>
-                                <option value="4">4 </option>
-                                <option value="5">5 </option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
+                            <label for="calificacion" class="block text-sm font-medium text-gray-300">Calificación Personal (1-10)</label>
+                            <input type="number" id="calificacion" name="calificacion" 
+                                   class="p-2 mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
+                                   min="1" max="10" value="5" required>
                         </div>
 
                         <div>
-                            <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+                            <label for="descripcion" class="block text-sm font-medium text-gray-300">Descripción</label>
                             <textarea id="descripcion" name="descripcion" rows="4" 
-                                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
+                                      class="p-1 mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
                                       placeholder="Una breve descripción del juego..."></textarea>
                         </div>
 
@@ -69,72 +78,93 @@
                 </div>
             </div>
 
-            <div class="md:w-2/3">
-                <div class="bg-white p-6 rounded-lg shadow-lg overflow-x-auto">
-                    <h2 class="text-2xl font-semibold mb-5">Lista de Videojuegos</h2>
+            <div class="md:w-2/3 flex-grow">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg h-full flex flex-col">
+                    <h2 class="text-2xl font-semibold mb-5 text-indigo-300">Lista de Videojuegos</h2>
                     
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Nombre
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Género
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Calificación
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Descripción
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Acciones
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    The Legend of Zelda: Tears of the Kingdom
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    Aventura
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    10/10
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-700 max-w-xs truncate" title="Una secuela increíble que expande Hyrule a los cielos.">
-                                    Una secuela increíble...
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900 ml-4">Eliminar</a>
-                                </td>
-                            </tr>
+                    <div class="flex-grow overflow-hidden">
+                        <table class="table-fixed-layout min-w-full divide-y divide-gray-700">
+                            <thead class="bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="w-1/5 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                        Nombre
+                                    </th>
+                                    <th scope="col" class="w-1/6 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                        Género
+                                    </th>
+                                    <th scope="col" class="w-1/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                        Calif.
+                                    </th>
+                                    <th scope="col" class="w-5/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                        Descripción
+                                    </th>
+                                    <th scope="col" class="w-1/6 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                        Acciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-gray-800 divide-y divide-gray-700">
+                                
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-100">
+                                        The Witcher 3: Wild Hunt
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300">
+                                        RPG
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300">
+                                        10/10
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300 table-description">
+                                        Una obra maestra del RPG, con una historia profunda y un mundo vibrante.
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium">
+                                        <a href="#" class="text-indigo-400 hover:text-indigo-300">Editar</a>
+                                        <a href="#" class="text-red-500 hover:text-red-400 ml-3">Eliminar</a>
+                                    </td>
+                                </tr>
 
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    Stardew Valley
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    Simulador de Granja
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    9/10
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-700 max-w-xs truncate" title="Simulador de vida en la granja relajante y adictivo.">
-                                    Relajante y adictivo.
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900 ml-4">Eliminar</a>
-                                </td>
-                            </tr>
-
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-100">
+                                        Hades
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300">
+                                        Roguelike
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300">
+                                        9/10
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300 table-description">
+                                        Un roguelike con excelente narrativa, arte y jugabilidad adictiva.
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium">
+                                        <a href="#" class="text-indigo-400 hover:text-indigo-300">Editar</a>
+                                        <a href="#" class="text-red-500 hover:text-red-400 ml-3">Eliminar</a>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-100">
+                                        Hollow Knight
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300">
+                                        Metroidvania
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300">
+                                        10/10
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-300 table-description">
+                                        Un metroidvania con arte precioso, excelente combate y secretos a descubrir.
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium">
+                                        <a href="#" class="text-indigo-400 hover:text-indigo-300">Editar</a>
+                                        <a href="#" class="text-red-500 hover:text-red-400 ml-3">Eliminar</a>
+                                    </td>
+                                </tr>
+                                
                             </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
 
