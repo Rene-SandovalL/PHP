@@ -41,6 +41,16 @@
     ];
 
     $bestLanguajes[]="Typescript";
+
+    //Diccionarios parecidos a los objetos de javascript
+    $person = [
+        "name" => "Rene",
+        "age" => 78,
+        "isDev" => true,
+        "Languajes" => ["PHP", "Python"],
+    ];
+
+    $person["name"] = "pepe";
 ?>
 
 <?php if($isOld): ?>
