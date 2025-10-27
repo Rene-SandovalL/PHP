@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD de Videojuegos - Oscuro</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/91f180ab0a.js" crossorigin="anonymous"></script>
     <style>
         input[type='number']::-webkit-inner-spin-button,
         input[type='number']::-webkit-outer-spin-button {
@@ -36,29 +37,37 @@
         <div class="flex flex-col md:flex-row flex-grow p-4 gap-6">
 
             <div class="md:w-1/3">
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg h-full"> <h2 class="text-2xl font-semibold mb-5 text-indigo-300">Agregar Nuevo Videojuego</h2>
-                    
+                <div class="bg-gray-800 p-5 rounded-lg shadow-lg h-full"> <h2 class="text-2xl font-semibold mb-5 text-indigo-300">Agregar Nuevo Videojuego</h2>
+                    <?php
+                        include "modelo/conexion.php";
+                        include "controlador/registrar_videojuego.php";
+                        include "controlador/eliminar_videojuego.php";
+
+                        if (!empty($mensaje_estado)) {
+                            echo '<div class="text-teal-500 font-bold p-1 rounded-md">' . $mensaje_estado . '</div>';
+                        }
+                    ?>
                     <form action="#" method="POST" class="space-y-4">
                         
                         <div>
                             <label for="nombre" class="block text-sm font-medium text-gray-300">Nombre</label>
                             <input type="text" id="nombre" name="nombre" 
                                    class="p-2 mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
-                                   placeholder="Ej: Cyberpunk 2077" required>
+                                   placeholder="Ej: Cyberpunk 2077" >
                         </div>
 
                         <div>
                             <label for="genero" class="block text-sm font-medium text-gray-300">Género</label>
                             <input type="text" id="genero" name="genero" 
                                    class="p-2 mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
-                                   placeholder="Ej: RPG de Acción" required>
+                                   placeholder="Ej: RPG de Acción" >
                         </div>
 
                         <div>
                             <label for="calificacion" class="block text-sm font-medium text-gray-300">Calificación Personal (1-10)</label>
                             <input type="number" id="calificacion" name="calificacion" 
                                    class="p-2 mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
-                                   min="1" max="10" value="5" required>
+                                   min="1" max="10" value="5" >
                         </div>
 
                         <div>
@@ -69,7 +78,7 @@
                         </div>
 
                         <div>
-                            <button type="submit" 
+                            <button type="submit" name="btnguardar" value="ok"
                                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Guardar Videojuego
                             </button>
@@ -86,81 +95,54 @@
                         <table class="table-fixed-layout min-w-full divide-y divide-gray-700">
                             <thead class="bg-gray-700">
                                 <tr>
-                                    <th scope="col" class="w-1/5 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                    <th scope="col" class="w-1/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                        Id
+                                    </th>
+                                    <th scope="col" class="w-2/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                         Nombre
                                     </th>
-                                    <th scope="col" class="w-1/6 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                    <th scope="col" class="w-2/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                         Género
                                     </th>
                                     <th scope="col" class="w-1/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                         Calif.
                                     </th>
-                                    <th scope="col" class="w-5/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                    <th scope="col" class="w-4/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                         Descripción
                                     </th>
-                                    <th scope="col" class="w-1/6 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                    <th scope="col" class="w-3/12 px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                         Acciones
                                     </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-gray-800 divide-y divide-gray-700">
-                                
-                                <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-100">
-                                        The Witcher 3: Wild Hunt
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300">
-                                        RPG
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300">
-                                        10/10
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300 table-description">
-                                        Una obra maestra del RPG, con una historia profunda y un mundo vibrante.
-                                    </td>
-                                    <td class="px-4 py-3 text-sm font-medium">
-                                        <a href="#" class="text-indigo-400 hover:text-indigo-300">Editar</a>
-                                        <a href="#" class="text-red-500 hover:text-red-400 ml-3">Eliminar</a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-100">
-                                        Hades
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300">
-                                        Roguelike
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300">
-                                        9/10
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300 table-description">
-                                        Un roguelike con excelente narrativa, arte y jugabilidad adictiva.
-                                    </td>
-                                    <td class="px-4 py-3 text-sm font-medium">
-                                        <a href="#" class="text-indigo-400 hover:text-indigo-300">Editar</a>
-                                        <a href="#" class="text-red-500 hover:text-red-400 ml-3">Eliminar</a>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-100">
-                                        Hollow Knight
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300">
-                                        Metroidvania
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300">
-                                        10/10
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-300 table-description">
-                                        Un metroidvania con arte precioso, excelente combate y secretos a descubrir.
-                                    </td>
-                                    <td class="px-4 py-3 text-sm font-medium">
-                                        <a href="#" class="text-indigo-400 hover:text-indigo-300">Editar</a>
-                                        <a href="#" class="text-red-500 hover:text-red-400 ml-3">Eliminar</a>
-                                    </td>
-                                </tr>
+                                <?php
+                                    include "modelo/conexion.php";
+                                    $sql=$conexion->query("select * from videojuego");
+                                    while($datos=$sql->fetch_object()){ ?>
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm font-medium text-gray-100">
+                                                <?= $datos->id_videojuego ?>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm font-medium text-gray-100">
+                                                <?= $datos->nombre_videojuego ?>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm text-gray-300">
+                                                <?= $datos->genero ?>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm text-gray-300 text-justify text-center">
+                                                <?= $datos->calificacion ?>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm text-gray-300 text-justify text-center">
+                                                <?= $datos-> descripcion?>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm font-medium">
+                                                <a href="#" class="text-indigo-400 hover:text-indigo-300"><i class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                <a href="index.php?id=<?= $datos->id_videojuego?>" class="text-red-500 hover:text-red-400 ml-3" onclick="return confirm('¿Estás seguro de que deseas eliminar este videojuego?');"><i class="fa-solid fa-trash"></i>Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                ?>
                                 
                             </tbody>
                         </table>
